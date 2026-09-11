@@ -5,36 +5,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Classement Général</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            background-color: #2b2b2b;
-            font-family: 'Arial', sans-serif;
-            padding: 40px 20px;
-            min-height: 100vh;
-        }
-        
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-            color: white;
-        }
-        
-        .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
+       * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #2b2b2b;
+    font-family: 'Arial', sans-serif;
+    padding: 40px 20px;
+    min-height: 100vh;
+    font-size: 16px; /* base ajoutée */
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 40px;
+    color: white;
+}
+
+.header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* ===== AJOUT : Media queries pour mobile ===== */
+
+/* Tablettes */
+@media (max-width: 768px) {
+    body {
+        padding: 20px 15px; /* réduit le padding */
+    }
+    
+    .header {
+        margin-bottom: 25px;
+    }
+    
+    .header h1 {
+        font-size: 1.8em; /* réduit la taille */
+        letter-spacing: 1px;
+    }
+}
+
+/* Smartphones */
+@media (max-width: 480px) {
+    body {
+        padding: 15px 10px;
+    }
+    
+    .header h1 {
+        font-size: 1.4em; /* encore plus petit */
+        letter-spacing: 0.5px;
+    }
+}
         
         .flag {
             font-size: 3em;
