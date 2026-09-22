@@ -1,1 +1,391 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yas Marina Manche 4</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #3a3a3a;
+            color: #fff;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .title {
+            font-size: 3em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .flag {
+            font-size: 4em;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.5em;
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-size: 1.8em;
+            background-color: #e74c3c;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        table {
+            width: 940px; /* largeur fixe totale (tableaux course = 7 colonnes) */
+            border-collapse: collapse;
+            background-color: #2a2a2a;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+            table-layout: fixed;
+        }
+
+        /* Tableaux de qualification = 6 colonnes, largeur totale réduite */
+        .table-qualif {
+            width: 780px;
+        }
+
+        thead {
+            background-color: #e74c3c;
+            font-weight: bold;
+        }
+
+        th {
+            padding: 15px;
+            text-align: left;
+            border-right: 1px solid #555;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        th:last-child {
+            border-right: none;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #444;
+            border-right: 1px solid #444;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        td:last-child {
+            border-right: none;
+        }
+
+        tbody tr:hover {
+            background-color: #3a3a3a;
+        }
+
+        /* Largeurs de colonnes communes à TOUS les tableaux (pixels fixes) */
+        th:nth-child(1), td:nth-child(1) { width: 60px; }   /* Pos */
+        th:nth-child(2), td:nth-child(2) { width: 220px; }  /* Pilote */
+        th:nth-child(3), td:nth-child(3) { width: 110px; }  /* Catégorie */
+        th:nth-child(4), td:nth-child(4) { width: 110px; }  /* Centre */
+        th:nth-child(5), td:nth-child(5) { width: 80px; }   /* Tours */
+
+        /* Qualifications (6 colonnes) */
+        .table-qualif th:nth-child(6),
+        .table-qualif td:nth-child(6) {
+            width: 200px; /* Meilleur Temps */
+        }
+
+        /* Courses (7 colonnes) */
+        .table-course th:nth-child(6),
+        .table-course td:nth-child(6) {
+            width: 180px; /* Temps/Retraite */
+        }
+        .table-course th:nth-child(7),
+        .table-course td:nth-child(7) {
+            width: 180px; /* Meilleur Temps */
+        }
+
+        .pos {
+            font-weight: bold;
+            color: #e74c3c;
+        }
+
+        .pilote {
+            font-weight: bold;
+        }
+
+        .categorie {
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 3px;
+            text-align: center;
+            display: inline-block;
+            width: 70px;
+        }
+
+        .categorie.gold {
+            background-color: #ffd700;
+            color: #000;
+        }
+
+        .categorie.silver {
+            background-color: #c0c0c0;
+            color: #000;
+        }
+
+        .centre {
+            background-color: #1a1a1a;
+            font-weight: bold;
+            color: #00d4ff;
+        }
+
+        /* Navigation commune entre les pages */
+        .nav-menu {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto 24px;
+            padding: 12px 16px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            background-color: #2a2a2a;
+            border-bottom: 3px solid #e74c3c;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.35);
+        }
+
+        .nav-menu a {
+            color: #fff;
+            text-decoration: none;
+            padding: 8px 14px;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            background-color: #e74c3c;
+            color: #fff;
+        }
+
+        .sous-menu {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto 24px;
+            padding: 12px 16px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            background-color: #2a2a2a;
+            border-bottom: 3px solid #e74c3c;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.35);
+        }
+         .sous-menu a {
+            color: #fff;
+            text-decoration: none;
+            padding: 8px 14px;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .sous-menu a:hover,
+        .sous-menu a.active {
+            background-color: #e74c3c;
+            color: #fff;
+        }
+
+        /* Pour permettre le défilement horizontal si l'écran est trop petit */
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+    </style>
+</head>
+<body>
+    <ul>
+    
+    <nav class="nav-menu" aria-label="Navigation principale">
+        <a href="index.html" class="active">Classement</a>
+        <a href="categorie.html" class="active">Catégorie</a>
+        <a href="centre.html" class="active">Centre</a>
+        
+    </ul>
+
+    <nav class="sous-menu">
+    <ul>
+        <a href="Barcelone.html">Barcelone</a>
+        <a href="Hungaroring.html">Hungaroring</a>
+        <a href="Bahrein.html">Bahrein</a>
+        <a href="YasMarina.html">Yas Marina</a>
+    </nav>
+    </ul>
+    
+    <div class="container">
+        <div class="header">
+            <div class="flag">🇦🇪</div>
+            <div class="title">YAS MARINA</div>
+            <div class="subtitle">Manche 4</div>
+        </div>
+
+        <!-- QUALIF 1 -->
+        <div class="section">
+            <div class="section-title">Qualification 1</div>
+            <div class="table-wrapper">
+            <table class="table-qualif">
+                <thead>
+                    <tr>
+                        <th>Pos</th>
+                        <th>Pilote</th>
+                        <th>Catégorie</th>
+                        <th>Centre</th>
+                        <th>Tours</th>
+                        <th>Meilleur Temps</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="pos">1</td>
+                        <td class="pilote"></td>
+                        <td><span class=</span></td>
+                        <td class="centre"></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+            </div>
+        </div>
+
+        <!-- COURSE 1 -->
+        <div class="section">
+            <div class="section-title">Course 1</div>
+            <div class="table-wrapper">
+            <table class="table-course">
+                <thead>
+                    <tr>
+                        <th>Pos</th>
+                        <th>Pilote</th>
+                        <th>Catégorie</th>
+                        <th>Centre</th>
+                        <th>Tours</th>
+                        <th>Temps/Retraite</th>
+                        <th>Meilleur Temps</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="pos">1</td>
+                        <td class="pilote"></td>
+                        <td><span class=</span></td>
+                        <td class="centre"></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                  
+                </tbody>
+            </table>
+            </div>
+        </div>
+
+        <!-- QUALIF 2 -->
+        <div class="section">
+            <div class="section-title">Qualification 2</div>
+            <div class="table-wrapper">
+            <table class="table-qualif">
+                <thead>
+                    <tr>
+                        <th>Pos</th>
+                        <th>Pilote</th>
+                        <th>Catégorie</th>
+                        <th>Centre</th>
+                        <th>Tours</th>
+                        <th>Meilleur Temps</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="pos">1</td>
+                        <td class="pilote"></td>
+                        <td><span class=</span></td>
+                        <td class="centre"></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+            </div>
+        </div>
+
+        <!-- COURSE 2 -->
+        <div class="section">
+            <div class="section-title">Course 2</div>
+            <div class="table-wrapper">
+            <table class="table-course">
+                <thead>
+                    <tr>
+                        <th>Pos</th>
+                        <th>Pilote</th>
+                        <th>Catégorie</th>
+                        <th>Centre</th>
+                        <th>Tours</th>
+                        <th>Temps/Retraite</th>
+                        <th>Meilleur Temps</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="pos">1</td>
+                        <td class="pilote"></td>
+                        <td><span class=</span></td>
+                        <td class="centre"></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+            </div>
+        </div>
+
+    </div>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v31edd6df95cf4e85bb4c19e7a9bdbcba1788362987495" integrity="sha512-iIg7k2xntmwu6/uSb5tpc/hySgZc4eoL31yB29W6tJFo2akwjPWcEqnCEdJvGexCL0KEQwVYv5BlowfhVz26hg==" data-cf-beacon='{"version":"2024.11.0","token":"8607d2a720d14b038279025b2b5a82e5","spa":2}' crossorigin="anonymous"></script>
+</body>
+</html>
